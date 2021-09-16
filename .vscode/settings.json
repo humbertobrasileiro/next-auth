@@ -1,4 +1,7 @@
 {
   "liveServer.settings.root": "/out",
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "cSpell.words": [
+    "Strapi"
+  ]
 }

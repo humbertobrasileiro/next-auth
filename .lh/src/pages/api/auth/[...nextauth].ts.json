@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1631313498877,
@@ -12,6 +12,22 @@
                 {
                     "date": 1631558176027,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,13 +22,12 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n-      credentials: {\n-        email: { label: 'Email or username' },\n-        password: { label: 'Password', type: 'password' },\n-      },\n+      credentials: {},\n       async authorize(credentials) {\n+        if (!credentials?.email || !credentials?.password) return null;\n+\n         try {\n           const { login } = await gqlClient.request(\n             GQL_MUTATION_AUTHENTICATE_USER,\n             {\n"
+                },
+                {
+                    "date": 1631801750179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,8 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n-      credentials: {},\n       async authorize(credentials) {\n         if (!credentials?.email || !credentials?.password) return null;\n \n         try {\n"
+                },
+                {
+                    "date": 1631801778019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,12 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n+      credentials: {\n+        email,\n+        password,\n+      },\n       async authorize(credentials) {\n         if (!credentials?.email || !credentials?.password) return null;\n \n         try {\n"
+                },
+                {
+                    "date": 1631802815722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,10 +23,10 @@\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n       credentials: {\n-        email,\n-        password,\n+        email: { label: '' },\n+        password: { label: '' },\n       },\n       async authorize(credentials) {\n         if (!credentials?.email || !credentials?.password) return null;\n \n"
+                },
+                {
+                    "date": 1631804570505,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,9 +99,8 @@\n       }\n \n       session.accessToken = token.jwt;\n       session.user = {\n-        id: token.id,\n         name: token.name,\n         email: token.email,\n       };\n \n"
                 }
             ],
             "date": 1631313498877,

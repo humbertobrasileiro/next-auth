@@ -100,6 +100,7 @@ export default NextAuth({
 
       session.accessToken = token.jwt;
       session.user = {
+        id: token.id,
         name: token.name,
         email: token.email,
       };
