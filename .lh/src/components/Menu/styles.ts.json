@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/Menu/styles.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631559402716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631559402716,
+            "name": "Commit-0",
+            "content": "import styled, { css } from 'styled-components';\n\nexport const Wrapper = styled.nav`\n  ${({ theme }) => css`\n    display: flex;\n    flex-flow: row wrap;\n    margin-bottom: ${theme.spacings.xlarge};\n    a {\n      margin-right: ${theme.spacings.small};\n      text-decoration: none;\n      display: block;\n      padding: ${theme.spacings.xsmall} 0;\n    }\n  `}\n`;\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/templates/Home/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631749183738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631749183738,
+            "name": "Commit-0",
+            "content": "import { useSession } from 'next-auth/client';\nimport { Wrapper } from '../../components/Wrapper';\n\nexport const HomeTemplate = () => {\n  const [session] = useSession();\n\n  return (\n    <Wrapper>\n      <h1>Olá {session?.user?.name || 'ninguém'}</h1>\n    </Wrapper>\n  );\n};\n"
+        }
+    ]
+}

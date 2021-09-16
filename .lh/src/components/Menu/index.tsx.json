@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/Menu/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631559370827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631559370827,
+            "name": "Commit-0",
+            "content": "import { signOut, useSession } from 'next-auth/client';\nimport Link from 'next/link';\nimport React, { useEffect, useState } from 'react';\nimport * as Styled from './styles';\n\nexport type MenuProps = {\n  title?: string;\n};\n\nexport const Menu = () => {\n  const [session] = useSession();\n  const [redirect, setRedirect] = useState('/');\n\n  useEffect(() => {\n    if (typeof window === 'undefined') return;\n\n    setRedirect(encodeURI(window.location.pathname));\n  }, []);\n\n  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {\n    event.preventDefault();\n    signOut({ redirect: false });\n  };\n\n  return (\n    <Styled.Wrapper>\n      <Link href=\"/\">\n        <a>Home</a>\n      </Link>\n      <Link href=\"/posts\">\n        <a>Posts</a>\n      </Link>\n      <Link href=\"/create-post\">\n        <a>Create Post</a>\n      </Link>\n\n      {session ? (\n        <a href=\"#\" onClick={handleClick}>\n          Sair\n        </a>\n      ) : (\n        <Link\n          href={{\n            pathname: '/login',\n            query: {\n              redirect,\n            },\n          }}\n        >\n          <a>Login</a>\n        </Link>\n      )}\n    </Styled.Wrapper>\n  );\n};\n"
+        }
+    ]
+}

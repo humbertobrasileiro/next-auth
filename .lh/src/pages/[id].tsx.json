@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/pages/[id].tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1631748917083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631749028346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import { GetServerSideProps } from 'next';\n import { getSession } from 'next-auth/client';\n import { StrapiPost } from '../components/FormPost';\n import { PrivateComponent } from '../components/PrivateComponent';\n-import { UpdatePostTemplate } from '../components/templates/UpdatePost';\n+import { UpdatePostTemplate } from '../templates/UpdatePost';\n import { gqlClient } from '../graphql/client';\n import { GQL_QUERY_GET_POST } from '../graphql/queries/post';\n import { serverSideRedirect } from '../utils/server-side-redirect';\n \n"
+                }
+            ],
+            "date": 1631748917083,
+            "name": "Commit-0",
+            "content": "import { GetServerSideProps } from 'next';\nimport { getSession } from 'next-auth/client';\nimport { StrapiPost } from '../components/FormPost';\nimport { PrivateComponent } from '../components/PrivateComponent';\nimport { UpdatePostTemplate } from '../components/templates/UpdatePost';\nimport { gqlClient } from '../graphql/client';\nimport { GQL_QUERY_GET_POST } from '../graphql/queries/post';\nimport { serverSideRedirect } from '../utils/server-side-redirect';\n\nexport type PostPageProps = {\n  post: StrapiPost;\n};\n\nexport default function PostPage({ post }: PostPageProps) {\n  return (\n    <PrivateComponent>\n      <UpdatePostTemplate post={post} />\n    </PrivateComponent>\n  );\n}\n\nexport const getServerSideProps: GetServerSideProps = async (ctx) => {\n  const session = await getSession(ctx);\n  const { id } = ctx.params;\n\n  if (!session) {\n    return serverSideRedirect(ctx);\n  }\n\n  try {\n    const { post } = await gqlClient.request(\n      GQL_QUERY_GET_POST,\n      {\n        id,\n      },\n      {\n        Authorization: `Bearer ${session.accessToken}`,\n      },\n    );\n\n    return {\n      props: {\n        session,\n        post,\n      },\n    };\n  } catch (e) {\n    return serverSideRedirect(ctx);\n  }\n};\n"
+        }
+    ]
+}

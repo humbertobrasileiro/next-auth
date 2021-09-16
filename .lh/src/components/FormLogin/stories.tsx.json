@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/FormLogin/stories.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631557224459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631557224459,
+            "name": "Commit-0",
+            "content": "import { Meta, Story } from '@storybook/react/types-6-0';\nimport { FormLogin, FormLoginProps } from '.';\n\nexport default {\n  title: 'FormLogin',\n  component: FormLogin,\n  parameters: {\n    layout: 'fullscreen',\n  },\n  decorators: [\n    (Story) => {\n      return (\n        <div style={{ padding: '4rem' }}>\n          <Story />\n        </div>\n      );\n    },\n  ],\n} as Meta<FormLoginProps>;\n\nexport const Template: Story<FormLoginProps> = (args) => {\n  return <FormLogin {...args} />;\n};\n\nexport const WithError: Story<FormLoginProps> = (args) => {\n  return <FormLogin {...args} />;\n};\n\nWithError.args = {\n  errorMessage: 'Este é seu erro',\n};\n"
+        }
+    ]
+}

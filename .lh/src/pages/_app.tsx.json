@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pages/_app.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631756177442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631756177442,
+            "name": "Commit-0",
+            "content": "import { ThemeProvider } from 'styled-components';\nimport { theme } from '../styles/theme';\nimport { AppProps } from 'next/app';\nimport { Provider as NextAuthProvider } from 'next-auth/client';\nimport NextNprogress from 'nextjs-progressbar';\n\nimport { GlobalStyles } from '../styles/global-styles';\n\nfunction MyApp({ Component, pageProps }: AppProps) {\n  return (\n    <NextAuthProvider session={pageProps.session}>\n      <ThemeProvider theme={theme}>\n        <NextNprogress\n          color={theme.colors.info}\n          startPosition={0.3}\n          stopDelayMs={200}\n          height={10}\n        />\n        <Component {...pageProps} />\n        <GlobalStyles />\n      </ThemeProvider>\n    </NextAuthProvider>\n  );\n}\n\nexport default MyApp;\n"
+        }
+    ]
+}

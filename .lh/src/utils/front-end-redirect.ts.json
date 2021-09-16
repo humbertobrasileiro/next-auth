@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/utils/front-end-redirect.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631560334581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631560334581,
+            "name": "Commit-0",
+            "content": "export const frontEndRedirect = (redirectTo?: string) => {\n  if (typeof window === 'undefined') return;\n\n  const newPath = redirectTo || encodeURI(window.location.pathname);\n  window.location.href = `${process.env.NEXT_PUBLIC_LOGIN_URI}/?redirect=${newPath}`;\n\n  return null;\n};\n"
+        }
+    ]
+}

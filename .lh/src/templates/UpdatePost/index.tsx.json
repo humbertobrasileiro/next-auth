@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/templates/UpdatePost/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1631749318403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631749758639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import { useSession } from 'next-auth/client';\n import { gqlClient } from '../../graphql/client';\n import { GQL_MUTATION_UPDATE_POST } from '../../graphql/mutations/post';\n-import { FormPost, StrapiPost } from '../../components/FormPost';\n+import { FormPost, StrapiPost } from '../../FormPost';\n import { Wrapper } from '../../components/Wrapper';\n \n export type UpdatePostTemplateProps = {\n   post: StrapiPost;\n"
+                },
+                {
+                    "date": 1631749787872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import { useSession } from 'next-auth/client';\n import { gqlClient } from '../../graphql/client';\n import { GQL_MUTATION_UPDATE_POST } from '../../graphql/mutations/post';\n-import { FormPost, StrapiPost } from '../../FormPost';\n+import { FormPost, StrapiPost } from '../../components/FormPost';\n import { Wrapper } from '../../components/Wrapper';\n \n export type UpdatePostTemplateProps = {\n   post: StrapiPost;\n"
+                }
+            ],
+            "date": 1631749318403,
+            "name": "Commit-0",
+            "content": "import { useSession } from 'next-auth/client';\nimport { gqlClient } from '../../graphql/client';\nimport { GQL_MUTATION_UPDATE_POST } from '../../graphql/mutations/post';\nimport { FormPost, StrapiPost } from '../../components/FormPost';\nimport { Wrapper } from '../../components/Wrapper';\n\nexport type UpdatePostTemplateProps = {\n  post: StrapiPost;\n};\n\nexport function UpdatePostTemplate({ post }: UpdatePostTemplateProps) {\n  const [session] = useSession();\n\n  const handleSave = async ({ id, title, content }) => {\n    try {\n      await gqlClient.request(\n        GQL_MUTATION_UPDATE_POST,\n        {\n          id,\n          title,\n          content,\n        },\n        {\n          Authorization: `Bearer ${session.accessToken}`,\n        },\n      );\n    } catch (e) {\n      alert('Erro ao salvar o post');\n    }\n  };\n\n  return (\n    <Wrapper>\n      <FormPost onSave={handleSave} post={post} />\n    </Wrapper>\n  );\n}\n"
+        }
+    ]
+}

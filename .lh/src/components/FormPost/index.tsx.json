@@ -1,0 +1,110 @@
+{
+    "sourceFile": "src/components/FormPost/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 23,
+            "patches": [
+                {
+                    "date": 1631750466154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631750646697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,7 @@\n-import * as Styled from './styles';\n-\n-export type FormPostProps = {\n-  title?: string;\n-};\n-\n-export const FormPost = ({ title }: FormPostProps) => {\n+export const FormPost = () => {\n   return (\n-    <Styled.Wrapper>\n-      <h1>Oi</h1>\n-      <p>{title}</p>\n-    </Styled.Wrapper>\n+    <form>\n+      <input type=\"hidden\" name=\"post-id\" value={id} />\n+    </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631750814064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,10 @@\n+export type StrapiPost = {\n+  id?: string;\n+  title: string;\n+  content: string;\n+};\n+\n export const FormPost = () => {\n   return (\n     <form>\n       <input type=\"hidden\" name=\"post-id\" value={id} />\n"
+                },
+                {
+                    "date": 1631750884329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,12 @@\n   title: string;\n   content: string;\n };\n \n+export type FormPostProps = {\n+  onSave?: (post: StrapiPost)\n+}\n+\n export const FormPost = () => {\n   return (\n     <form>\n       <input type=\"hidden\" name=\"post-id\" value={id} />\n"
+                },
+                {
+                    "date": 1631750923368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n export type FormPostProps = {\n   onSave?: (post: StrapiPost)\n }\n \n-export const FormPost = () => {\n+export const FormPost = ({ post}: ) => {\n   return (\n     <form>\n       <input type=\"hidden\" name=\"post-id\" value={id} />\n     </form>\n"
+                },
+                {
+                    "date": 1631751298590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,14 +4,15 @@\n   content: string;\n };\n \n export type FormPostProps = {\n-  onSave?: (post: StrapiPost)\n-}\n+  onSave?: (post: StrapiPost) => Promisse<void>;\n+  post?: StrapiPost;\n+};\n \n-export const FormPost = ({ post}: ) => {\n+export const FormPost = ({ post }: FormPostProps) => {\n   return (\n     <form>\n-      <input type=\"hidden\" name=\"post-id\" value={id} />\n+      <input type=\"hidden\" name=\"post-id\" value={post.id} />\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631751513113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,6 @@\n+import { useState } from 'react';\n+\n export type StrapiPost = {\n   id?: string;\n   title: string;\n   content: string;\n@@ -9,10 +11,13 @@\n   post?: StrapiPost;\n };\n \n export const FormPost = ({ post }: FormPostProps) => {\n+  const { title = '', content = '', id = '' } = post;\n+  const [newTitle, setNewTitle] = useState(title);\n+\n   return (\n     <form>\n-      <input type=\"hidden\" name=\"post-id\" value={post.id} />\n+      <input type=\"hidden\" name=\"post-id\" value={id} />\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631751578490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,9 @@\n \n export const FormPost = ({ post }: FormPostProps) => {\n   const { title = '', content = '', id = '' } = post;\n   const [newTitle, setNewTitle] = useState(title);\n+  const [newContent, setContent] = useState(content);\n \n   return (\n     <form>\n       <input type=\"hidden\" name=\"post-id\" value={id} />\n"
+                },
+                {
+                    "date": 1631751772259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import { useState } from 'react';\n+import { TextInput } from '../TextInput';\n \n export type StrapiPost = {\n   id?: string;\n   title: string;\n@@ -17,8 +18,13 @@\n   const [newContent, setContent] = useState(content);\n \n   return (\n     <form>\n-      <input type=\"hidden\" name=\"post-id\" value={id} />\n+      <TextInput\n+        name=\"post-title\"\n+        label=\"Post title\"\n+        value={newTitle}\n+        onInputChange\n+      />\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631751818401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n       <TextInput\n         name=\"post-title\"\n         label=\"Post title\"\n         value={newTitle}\n-        onInputChange\n+        onInputChange={(v) => setNewTitle(v)}\n       />\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631752434418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n   post?: StrapiPost;\n };\n \n export const FormPost = ({ post }: FormPostProps) => {\n-  const { title = '', content = '', id = '' } = post;\n+  const { title = '', content = '', id = '' } = post || {};\n   const [newTitle, setNewTitle] = useState(title);\n   const [newContent, setContent] = useState(content);\n \n   return (\n"
+                },
+                {
+                    "date": 1631752573856,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n export const FormPost = ({ post }: FormPostProps) => {\n   const { title = '', content = '', id = '' } = post || {};\n   const [newTitle, setNewTitle] = useState(title);\n-  const [newContent, setContent] = useState(content);\n+  const [newContent, setNewContent] = useState(content);\n \n   return (\n     <form>\n       <TextInput\n@@ -24,7 +24,14 @@\n         label=\"Post title\"\n         value={newTitle}\n         onInputChange={(v) => setNewTitle(v)}\n       />\n+      <TextInput\n+        name=\"post-content\"\n+        label=\"Post Content\"\n+        value={newContent}\n+        onInputChange={(v) => setNewContent(v)}\n+        as=\"textarea\"\n+      />\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631752676130,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import { useState } from 'react';\n+import { Button } from '../Button';\n import { TextInput } from '../TextInput';\n \n export type StrapiPost = {\n   id?: string;\n@@ -31,7 +32,8 @@\n         value={newContent}\n         onInputChange={(v) => setNewContent(v)}\n         as=\"textarea\"\n       />\n+      <Button type=\"submit\">Salvar</Button>\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631752952329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,14 @@\n   const { title = '', content = '', id = '' } = post || {};\n   const [newTitle, setNewTitle] = useState(title);\n   const [newContent, setNewContent] = useState(content);\n \n+  const handleSubmit = async () => {\n+    if (onSave) {\n+      onSave({ id, title: newTitle, content: newContent });\n+    }\n+  };\n+\n   return (\n     <form>\n       <TextInput\n         name=\"post-title\"\n"
+                },
+                {
+                    "date": 1631752974638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n   onSave?: (post: StrapiPost) => Promisse<void>;\n   post?: StrapiPost;\n };\n \n-export const FormPost = ({ post }: FormPostProps) => {\n+export const FormPost = ({ post, onSave }: FormPostProps) => {\n   const { title = '', content = '', id = '' } = post || {};\n   const [newTitle, setNewTitle] = useState(title);\n   const [newContent, setNewContent] = useState(content);\n \n"
+                },
+                {
+                    "date": 1631753014259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n     }\n   };\n \n   return (\n-    <form>\n+    <form onSubmit={handleSubmit}>\n       <TextInput\n         name=\"post-title\"\n         label=\"Post title\"\n         value={newTitle}\n"
+                },
+                {
+                    "date": 1631753208277,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,11 @@\n   const { title = '', content = '', id = '' } = post || {};\n   const [newTitle, setNewTitle] = useState(title);\n   const [newContent, setNewContent] = useState(content);\n \n-  const handleSubmit = async () => {\n+  const handleSubmit = async (event: React.FormEvent) => {\n+    e.preventDefault();\n+\n     if (onSave) {\n       onSave({ id, title: newTitle, content: newContent });\n     }\n   };\n"
+                },
+                {
+                    "date": 1631753229099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n   const [newTitle, setNewTitle] = useState(title);\n   const [newContent, setNewContent] = useState(content);\n \n   const handleSubmit = async (event: React.FormEvent) => {\n-    e.preventDefault();\n+    event.preventDefault();\n \n     if (onSave) {\n       onSave({ id, title: newTitle, content: newContent });\n     }\n"
+                },
+                {
+                    "date": 1631753301630,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,12 @@\n \n   const handleSubmit = async (event: React.FormEvent) => {\n     event.preventDefault();\n \n+    const newPost = { id, title: newTitle, content: newContent };\n+\n     if (onSave) {\n-      onSave({ id, title: newTitle, content: newContent });\n+      onSave(newPost);\n     }\n   };\n \n   return (\n"
+                },
+                {
+                    "date": 1631753486221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n export const FormPost = ({ post, onSave }: FormPostProps) => {\n   const { title = '', content = '', id = '' } = post || {};\n   const [newTitle, setNewTitle] = useState(title);\n   const [newContent, setNewContent] = useState(content);\n+  const [saving, setSaving] = useState(false);\n \n   const handleSubmit = async (event: React.FormEvent) => {\n     event.preventDefault();\n \n"
+                },
+                {
+                    "date": 1631753530543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,8 +43,10 @@\n         value={newContent}\n         onInputChange={(v) => setNewContent(v)}\n         as=\"textarea\"\n       />\n-      <Button type=\"submit\">Salvar</Button>\n+      <Button type=\"submit\" disabled={saving}>\n+        Salvar\n+      </Button>\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631753600590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n         onInputChange={(v) => setNewContent(v)}\n         as=\"textarea\"\n       />\n       <Button type=\"submit\" disabled={saving}>\n-        Salvar\n+        {saving ? 'Salvando' : 'Salvar'}\n       </Button>\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631753703592,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,15 +19,18 @@\n   const [newContent, setNewContent] = useState(content);\n   const [saving, setSaving] = useState(false);\n \n   const handleSubmit = async (event: React.FormEvent) => {\n+    setSaving(true);\n     event.preventDefault();\n \n     const newPost = { id, title: newTitle, content: newContent };\n \n     if (onSave) {\n       onSave(newPost);\n     }\n+\n+    setSaving(false);\n   };\n \n   return (\n     <form onSubmit={handleSubmit}>\n@@ -44,9 +47,9 @@\n         onInputChange={(v) => setNewContent(v)}\n         as=\"textarea\"\n       />\n       <Button type=\"submit\" disabled={saving}>\n-        {saving ? 'Salvando' : 'Salvar'}\n+        {saving ? 'Salvando...' : 'Salvar'}\n       </Button>\n     </form>\n   );\n };\n"
+                },
+                {
+                    "date": 1631753743317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n \n     const newPost = { id, title: newTitle, content: newContent };\n \n     if (onSave) {\n-      onSave(newPost);\n+      await onSave(newPost);\n     }\n \n     setSaving(false);\n   };\n"
+                }
+            ],
+            "date": 1631750466154,
+            "name": "Commit-0",
+            "content": "import * as Styled from './styles';\n\nexport type FormPostProps = {\n  title?: string;\n};\n\nexport const FormPost = ({ title }: FormPostProps) => {\n  return (\n    <Styled.Wrapper>\n      <h1>Oi</h1>\n      <p>{title}</p>\n    </Styled.Wrapper>\n  );\n};\n"
+        }
+    ]
+}

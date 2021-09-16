@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/templates/CreatePost/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631755313691,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631755313691,
+            "name": "Commit-0",
+            "content": "import { useSession } from 'next-auth/client';\nimport { gqlClient } from '../../graphql/client';\nimport { GQL_MUTATION_CREATE_POST } from '../../graphql/mutations/post';\nimport { FormPost } from '../../components/FormPost';\nimport { Wrapper } from '../../components/Wrapper';\nimport { useRouter } from 'next/dist/client/router';\n\nexport function CreatePostTemplate() {\n  const router = useRouter();\n  const [session] = useSession();\n\n  const handleSave = async ({ title, content }) => {\n    try {\n      const response = await gqlClient.request(\n        GQL_MUTATION_CREATE_POST,\n        {\n          title,\n          content,\n        },\n        {\n          Authorization: `Bearer ${session.accessToken}`,\n        },\n      );\n\n      const {\n        createPost: { post },\n      } = response;\n\n      if (post) {\n        router.push(`/${post.id}`);\n      } else {\n        throw new Error('Erro ao criar');\n      }\n    } catch (e) {\n      alert('Erro ao criar o post');\n    }\n  };\n\n  return (\n    <Wrapper>\n      <FormPost onSave={handleSave} />\n    </Wrapper>\n  );\n}\n"
+        }
+    ]
+}

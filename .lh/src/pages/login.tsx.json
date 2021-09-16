@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pages/login.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631558232690,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631558232690,
+            "name": "Commit-0",
+            "content": "import { signIn } from 'next-auth/client';\nimport { useRouter } from 'next/dist/client/router';\nimport { useState } from 'react';\nimport { FormLogin } from '../components/FormLogin';\nimport { Wrapper } from '../components/Wrapper';\n\nexport default function LoginPage() {\n  const router = useRouter();\n  const [error, setError] = useState('');\n\n  const handleLogin = async (email: string, password: string) => {\n    const response = await signIn('credentials', {\n      email,\n      password,\n      redirect: false,\n    });\n\n    if (!response.ok) {\n      setError('Usuário ou senha inválidos');\n      return;\n    }\n\n    const redirect = router.query?.redirect || '/';\n    router.push(redirect as string);\n  };\n\n  return (\n    <Wrapper>\n      <FormLogin onLogin={handleLogin} errorMessage={error} />\n    </Wrapper>\n  );\n}\n"
+        }
+    ]
+}

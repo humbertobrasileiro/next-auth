@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/styles/global-styles.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1631558272587,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631559654962,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     margin: ${({ theme }) => theme.spacings.medium};\n     padding: ${({ theme }) => theme.spacings.medium};\n   }\n   a {\n-    color: ${({ theme }) => theme.colors.secondaryColor};\n+    color: ${({ theme }) => theme.colors.secondary};\n   }\n   .table {\n     width: 100%;\n     overflow-y: auto;\n"
+                }
+            ],
+            "date": 1631558272587,
+            "name": "Commit-0",
+            "content": "import { createGlobalStyle } from 'styled-components';\n\nexport const GlobalStyles = createGlobalStyle`\n  * {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n  }\n  html {\n    font-size: 62.5%;\n    scroll-behavior: smooth;\n  }\n  body {\n    font-size: 1.6rem;\n    font-family: ${({ theme }) => theme.font.family.default};\n    background: ${({ theme }) => theme.colors.primary};\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-family: ${({ theme }) => theme.font.family.secondary};\n    margin: ${({ theme }) => theme.spacings.large} 0;\n  }\n  p {\n    margin: ${({ theme }) => theme.spacings.medium} 0;\n  }\n  ul, ol {\n    margin: ${({ theme }) => theme.spacings.medium};\n    padding: ${({ theme }) => theme.spacings.medium};\n  }\n  a {\n    color: ${({ theme }) => theme.colors.secondaryColor};\n  }\n  .table {\n    width: 100%;\n    overflow-y: auto;\n  }\n`;\n"
+        }
+    ]
+}

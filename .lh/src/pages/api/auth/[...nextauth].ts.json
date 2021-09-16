@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/pages/api/auth/[...nextauth].ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1631313498877,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631558176027,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,13 +22,12 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n-      credentials: {\n-        email: { label: 'Email or username' },\n-        password: { label: 'Password', type: 'password' },\n-      },\n+      credentials: {},\n       async authorize(credentials) {\n+        if (!credentials?.email || !credentials?.password) return null;\n+\n         try {\n           const { login } = await gqlClient.request(\n             GQL_MUTATION_AUTHENTICATE_USER,\n             {\n"
+                }
+            ],
+            "date": 1631313498877,
+            "name": "Commit-0",
+            "content": "import NextAuth from 'next-auth';\nimport Providers from 'next-auth/providers';\nimport { gqlClient } from '../../../graphql/client';\nimport { GQL_MUTATION_AUTHENTICATE_USER } from '../../../graphql/mutations/auth';\n\ntype NextAuthSession = {\n  id: string;\n  jwt: string;\n  name: string;\n  email: string;\n  expiration: number;\n};\n\nexport default NextAuth({\n  jwt: {\n    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,\n  },\n  secret: process.env.NEXT_AUTH_SECRET,\n  session: {\n    jwt: true,\n    maxAge: 7 * 24 * 60 * 60,\n  },\n  providers: [\n    Providers.Credentials({\n      name: 'Credentials',\n      credentials: {\n        email: { label: 'Email or username' },\n        password: { label: 'Password', type: 'password' },\n      },\n      async authorize(credentials) {\n        try {\n          const { login } = await gqlClient.request(\n            GQL_MUTATION_AUTHENTICATE_USER,\n            {\n              email: credentials.email,\n              password: credentials.password,\n            },\n          );\n\n          const { jwt, user } = login;\n          const { id, username, email } = user;\n\n          if (!jwt || !id || !username || !email) {\n            return null;\n          }\n\n          return {\n            jwt,\n            id,\n            name: username,\n            email,\n          };\n        } catch (e) {\n          // console.log(e);\n          return null;\n        }\n      },\n    }),\n  ],\n  callbacks: {\n    jwt: async (token: NextAuthSession, user: NextAuthSession) => {\n      const isSignIn = !!user;\n      const actualDateInSeconds = Math.floor(Date.now() / 1000);\n      // Tem que ser a mesma expiração do Strapi JWT\n      const tokenExpirationInSeconds = Math.floor(7 * 24 * 60 * 60);\n\n      if (isSignIn) {\n        if (!user || !user.jwt || !user.name || !user.email || !user.id) {\n          return Promise.resolve({});\n        }\n\n        token.jwt = user.jwt;\n        token.id = user.id;\n        token.name = user.name;\n        token.email = user.email;\n\n        token.expiration = Math.floor(\n          actualDateInSeconds + tokenExpirationInSeconds,\n        );\n      } else {\n        if (!token?.expiration) return Promise.resolve({});\n\n        if (actualDateInSeconds > token.expiration) return Promise.resolve({});\n      }\n\n      return Promise.resolve(token);\n    },\n    session: async (session, token: NextAuthSession) => {\n      if (\n        !token?.jwt ||\n        !token?.id ||\n        !token?.expiration ||\n        !token?.email ||\n        !token?.name\n      ) {\n        return null;\n      }\n\n      session.accessToken = token.jwt;\n      session.user = {\n        id: token.id,\n        name: token.name,\n        email: token.email,\n      };\n\n      return { ...session };\n    },\n  },\n});\n"
+        }
+    ]
+}

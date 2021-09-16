@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/templates/Posts/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631749238292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631749238292,
+            "name": "Commit-0",
+            "content": "import { useSession } from 'next-auth/client';\nimport Link from 'next/link';\nimport { useEffect, useState } from 'react';\nimport { StrapiPost } from '../../components/FormPost';\nimport { Wrapper } from '../../components/Wrapper';\nimport { gqlClient } from '../../graphql/client';\nimport { GQL_MUTATION_DELETE_POST } from '../../graphql/mutations/post';\n\nexport type PostsTemplateProps = {\n  posts?: StrapiPost[];\n};\n\nexport function PostsTemplate({ posts = [] }: PostsTemplateProps) {\n  const [session] = useSession();\n  const [statePosts, setStatePosts] = useState(posts);\n  const [deleting, setDeleting] = useState(false);\n\n  useEffect(() => {\n    setStatePosts(posts);\n  }, [posts]);\n\n  const handleDelete = async (id: string) => {\n    setDeleting(true);\n\n    try {\n      await gqlClient.request(\n        GQL_MUTATION_DELETE_POST,\n        {\n          id,\n        },\n        {\n          Authorization: `Bearer ${session.accessToken}`,\n        },\n      );\n\n      setStatePosts((s) => s.filter((p) => p.id !== id));\n    } catch (e) {\n      alert('Não foi possível excluir este post');\n    }\n\n    setDeleting(false);\n  };\n\n  return (\n    <Wrapper>\n      <h1>Olá {session?.user?.name || 'ninguém'}</h1>\n\n      {statePosts.map((p) => (\n        <p key={'post-' + p.id}>\n          <Link href={`/${p.id}`}>\n            <a>{p.title}</a>\n          </Link>{' '}\n          |{' '}\n          <button onClick={() => handleDelete(p.id)} disabled={deleting}>\n            Excluir\n          </button>\n        </p>\n      ))}\n    </Wrapper>\n  );\n}\n"
+        }
+    ]
+}

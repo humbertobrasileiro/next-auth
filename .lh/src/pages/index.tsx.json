@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/pages/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1631559477757,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631749062443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,13 @@\n import { GetServerSideProps } from 'next';\n-import { useSession } from 'next-auth/client';\n-import { Wrapper } from '../components/Wrapper';\n+import { PrivateComponent } from '../components/PrivateComponent';\n+import { HomeTemplate } from '../templates/Home';\n \n export default function Index() {\n-  const [session] = useSession();\n-\n   return (\n-    <Wrapper>\n-      <h1>Olá {session?.user?.name || 'ninguém'}</h1>\n-    </Wrapper>\n+    <PrivateComponent>\n+      <HomeTemplate />\n+    </PrivateComponent>\n   );\n }\n \n export const getServerSideProps: GetServerSideProps = async () => {\n"
+                }
+            ],
+            "date": 1631559477757,
+            "name": "Commit-0",
+            "content": "import { GetServerSideProps } from 'next';\nimport { useSession } from 'next-auth/client';\nimport { Wrapper } from '../components/Wrapper';\n\nexport default function Index() {\n  const [session] = useSession();\n\n  return (\n    <Wrapper>\n      <h1>Olá {session?.user?.name || 'ninguém'}</h1>\n    </Wrapper>\n  );\n}\n\nexport const getServerSideProps: GetServerSideProps = async () => {\n  return {\n    props: {},\n  };\n};\n"
+        }
+    ]
+}

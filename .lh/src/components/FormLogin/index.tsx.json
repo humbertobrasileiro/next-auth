@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/components/FormLogin/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1631557182496,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631558056318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,26 +15,16 @@\n   const [email, setEmail] = useState('');\n   const [password, setPassword] = useState('');\n   const [loading, setLoading] = useState(false);\n \n-  useEffect(() => {\n-    console.log(email, password);\n-  }, [email, password]);\n-\n   const handleSubmit = async (event: React.FormEvent) => {\n-    console.log('Enviado', new Date().toLocaleString('pt-br'));\n-\n     setLoading(true);\n     event.preventDefault();\n \n-    await new Promise((r) => setTimeout(r, 5000));\n-\n     if (onLogin) {\n       await onLogin(email, password);\n     }\n \n-    console.log('TERMINOU', new Date().toLocaleString('pt-br'));\n-\n     setLoading(false);\n   };\n \n   return (\n"
+                },
+                {
+                    "date": 1631559297890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import React, { useEffect, useState } from 'react';\n+import React, { useState } from 'react';\n import { Email } from '@styled-icons/material-outlined/Email';\n import { Password } from '@styled-icons/material-outlined/Password';\n \n import { TextInput } from '../TextInput';\n"
+                }
+            ],
+            "date": 1631557182496,
+            "name": "Commit-0",
+            "content": "import React, { useEffect, useState } from 'react';\nimport { Email } from '@styled-icons/material-outlined/Email';\nimport { Password } from '@styled-icons/material-outlined/Password';\n\nimport { TextInput } from '../TextInput';\nimport * as Styled from './styles';\nimport { Button } from '../Button';\n\nexport type FormLoginProps = {\n  errorMessage?: string;\n  onLogin?: (email: string, password: string) => Promise<void>;\n};\n\nexport const FormLogin = ({ errorMessage, onLogin }: FormLoginProps) => {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [loading, setLoading] = useState(false);\n\n  useEffect(() => {\n    console.log(email, password);\n  }, [email, password]);\n\n  const handleSubmit = async (event: React.FormEvent) => {\n    console.log('Enviado', new Date().toLocaleString('pt-br'));\n\n    setLoading(true);\n    event.preventDefault();\n\n    await new Promise((r) => setTimeout(r, 5000));\n\n    if (onLogin) {\n      await onLogin(email, password);\n    }\n\n    console.log('TERMINOU', new Date().toLocaleString('pt-br'));\n\n    setLoading(false);\n  };\n\n  return (\n    <Styled.Wrapper onSubmit={handleSubmit}>\n      <TextInput\n        name=\"user-identifier\"\n        label=\"Seu e-mail\"\n        onInputChange={(v) => setEmail(v)}\n        value={email}\n        icon={<Email />}\n        type=\"email\"\n      />\n      <TextInput\n        name=\"user-password\"\n        label=\"Sua senha\"\n        onInputChange={(v) => setPassword(v)}\n        value={password}\n        icon={<Password />}\n        type=\"password\"\n      />\n\n      {!!errorMessage && (\n        <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>\n      )}\n\n      <Styled.ButtonWrapper>\n        <Button disabled={loading}>{loading ? 'Aguarde...' : 'Entrar'}</Button>\n      </Styled.ButtonWrapper>\n    </Styled.Wrapper>\n  );\n};\n"
+        }
+    ]
+}

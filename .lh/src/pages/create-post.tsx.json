@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pages/create-post.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631755268337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631755268337,
+            "name": "Commit-0",
+            "content": "import { GetServerSideProps } from 'next';\nimport { getSession } from 'next-auth/client';\nimport { PrivateComponent } from '../components/PrivateComponent';\nimport { CreatePostTemplate } from '../templates/CreatePost';\nimport { serverSideRedirect } from '../utils/server-side-redirect';\n\nexport default function PostPage() {\n  return (\n    <PrivateComponent>\n      <CreatePostTemplate />\n    </PrivateComponent>\n  );\n}\n\nexport const getServerSideProps: GetServerSideProps = async (ctx) => {\n  const session = await getSession(ctx);\n\n  if (!session) {\n    return serverSideRedirect(ctx);\n  }\n\n  return {\n    props: {\n      session,\n    },\n  };\n};\n"
+        }
+    ]
+}
