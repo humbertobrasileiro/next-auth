@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 23,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1631750466154,
@@ -100,6 +100,10 @@
                 {
                     "date": 1631753743317,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n \n     const newPost = { id, title: newTitle, content: newContent };\n \n     if (onSave) {\n-      onSave(newPost);\n+      await onSave(newPost);\n     }\n \n     setSaving(false);\n   };\n"
+                },
+                {
+                    "date": 1631798966538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n   content: string;\n };\n \n export type FormPostProps = {\n-  onSave?: (post: StrapiPost) => Promisse<void>;\n+  onSave?: (post: StrapiPost) => Promise<void>;\n   post?: StrapiPost;\n };\n \n export const FormPost = ({ post, onSave }: FormPostProps) => {\n"
                 }
             ],
             "date": 1631750466154,
