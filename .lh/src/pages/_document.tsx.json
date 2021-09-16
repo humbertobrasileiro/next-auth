@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1631757035825,
@@ -11,6 +11,14 @@
                 },
                 {
                     "date": 1631757129102,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n \n     try {\n       ctx.renderPage = () =>\n         originalRenderPage({\n+          // eslint-disable-next-line react/display-name\n           enhanceApp: (App) => (props) =>\n             sheet.collectStyles(<App {...props} />),\n         });\n \n"
+                },
+                {
+                    "date": 1631799041870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,8 @@\n \n     try {\n       ctx.renderPage = () =>\n         originalRenderPage({\n-          // eslint-disable-next-line react/display-name\n           enhanceApp: (App) => (props) =>\n             sheet.collectStyles(<App {...props} />),\n         });\n \n"
+                },
+                {
+                    "date": 1631799054259,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n \n     try {\n       ctx.renderPage = () =>\n         originalRenderPage({\n+          // eslint-disable-next-line react/display-name\n           enhanceApp: (App) => (props) =>\n             sheet.collectStyles(<App {...props} />),\n         });\n \n"
                 }
             ],
