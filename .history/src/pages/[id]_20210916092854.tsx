@@ -22,28 +22,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return await privateServerSideProps(ctx, async (session) => {
     const { id } = ctx.params;
 
-    try {
-      const { post } = await gqlClient.request(
-        GQL_QUERY_GET_POST,
-        {
-          id,
-        },
-        {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      );
-      return {
-        props: {
-          session,
-          post,
-        },
-      };
-    } catch (e) {
-      return {
-        props: {
-          session,
-        },
-      };
-    }
+    const { post } = await gqlClient.request(
+      GQL_QUERY_GET_POST,
+      {
+        id,
+      },
+      {
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+    );
+
+    return {
+      props: {
+        session,
+        post,
+      },
+    };
   });
 };

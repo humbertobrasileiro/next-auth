@@ -32,7 +32,7 @@ export function UpdatePostTemplate({ post }: UpdatePostTemplateProps) {
   if (!post) {
     return (
       <Wrapper>
-        <p>Post does not exist</p>
+        <p>Post doest not exist</p>
       </Wrapper>
     );
   }

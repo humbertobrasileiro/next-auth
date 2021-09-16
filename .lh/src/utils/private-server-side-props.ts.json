@@ -1,0 +1,38 @@
+{
+    "sourceFile": "src/utils/private-server-side-props.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1631794585686,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1631794769434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,36 @@\n import { Session } from 'next-auth';\n import { GetServerSidePropsContext } from 'next';\n \n-export const privateServerSideProps = async (ctx: GetServerSidePropsContext, callbackFn?: (session: Session)) => {\n+export const privateServerSideProps = async <T>(\n+  ctx: GetServerSidePropsContext,\n+  callbackFn?: (session: Session) => Promise<T>,\n+) => {\n+  const session = await getSession(ctx);\n \n-}\n+  if (!session) {\n+    return serverSideRedirect(ctx);\n+  }\n+\n+  try {\n+    const { id } = ctx.params;\n+\n+    const { post } = await gqlClient.request(\n+      GQL_QUERY_GET_POST,\n+      {\n+        id,\n+      },\n+      {\n+        Authorization: `Bearer ${session.accessToken}`,\n+      },\n+    );\n+\n+    return {\n+      props: {\n+        session,\n+        post,\n+      },\n+    };\n+  } catch (e) {\n+    return serverSideRedirect(ctx);\n+  }\n+};\n"
+                },
+                {
+                    "date": 1631794793356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n+import { GetServerSidePropsContext } from 'next';\n import { Session } from 'next-auth';\n-import { GetServerSidePropsContext } from 'next';\n \n export const privateServerSideProps = async <T>(\n   ctx: GetServerSidePropsContext,\n   callbackFn?: (session: Session) => Promise<T>,\n"
+                },
+                {
+                    "date": 1631794976519,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,36 +1,22 @@\n import { GetServerSidePropsContext } from 'next';\n import { Session } from 'next-auth';\n+import { getSession } from 'next-auth/client';\n+import { serverSideRedirect } from './server-side-redirect';\n \n export const privateServerSideProps = async <T>(\n   ctx: GetServerSidePropsContext,\n-  callbackFn?: (session: Session) => Promise<T>,\n+  callbackFn: (session: Session) => Promise<T>,\n ) => {\n   const session = await getSession(ctx);\n \n   if (!session) {\n     return serverSideRedirect(ctx);\n   }\n \n   try {\n-    const { id } = ctx.params;\n-\n-    const { post } = await gqlClient.request(\n-      GQL_QUERY_GET_POST,\n-      {\n-        id,\n-      },\n-      {\n-        Authorization: `Bearer ${session.accessToken}`,\n-      },\n-    );\n-\n-    return {\n-      props: {\n-        session,\n-        post,\n-      },\n-    };\n+    const result = await callbackFn(session);\n+    return result;\n   } catch (e) {\n     return serverSideRedirect(ctx);\n   }\n };\n"
+                },
+                {
+                    "date": 1631795387136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,8 @@\n   try {\n     const result = await callbackFn(session);\n     return result;\n   } catch (e) {\n+    console.log('Aconteceu um erro');\n     return serverSideRedirect(ctx);\n   }\n };\n"
+                },
+                {
+                    "date": 1631795710063,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,12 +12,7 @@\n   if (!session) {\n     return serverSideRedirect(ctx);\n   }\n \n-  try {\n-    const result = await callbackFn(session);\n-    return result;\n-  } catch (e) {\n-    console.log('Aconteceu um erro');\n-    return serverSideRedirect(ctx);\n-  }\n+  const result = await callbackFn(session);\n+  return result;\n };\n"
+                }
+            ],
+            "date": 1631794585686,
+            "name": "Commit-0",
+            "content": "import { Session } from 'next-auth';\nimport { GetServerSidePropsContext } from 'next';\n\nexport const privateServerSideProps = async (ctx: GetServerSidePropsContext, callbackFn?: (session: Session)) => {\n\n}\n"
+        }
+    ]
+}

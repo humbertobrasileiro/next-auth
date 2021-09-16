@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1631749318403,
@@ -16,6 +16,14 @@
                 {
                     "date": 1631749787872,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import { useSession } from 'next-auth/client';\n import { gqlClient } from '../../graphql/client';\n import { GQL_MUTATION_UPDATE_POST } from '../../graphql/mutations/post';\n-import { FormPost, StrapiPost } from '../../FormPost';\n+import { FormPost, StrapiPost } from '../../components/FormPost';\n import { Wrapper } from '../../components/Wrapper';\n \n export type UpdatePostTemplateProps = {\n   post: StrapiPost;\n"
+                },
+                {
+                    "date": 1631795665393,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,16 @@\n       alert('Erro ao salvar o post');\n     }\n   };\n \n+  if (!post) {\n+    return (\n+      <Wrapper>\n+        <p>Post doest not exist</p>\n+      </Wrapper>\n+    );\n+  }\n+\n   return (\n     <Wrapper>\n       <FormPost onSave={handleSave} post={post} />\n     </Wrapper>\n"
+                },
+                {
+                    "date": 1631795879323,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \n   if (!post) {\n     return (\n       <Wrapper>\n-        <p>Post doest not exist</p>\n+        <p>Post does not exist</p>\n       </Wrapper>\n     );\n   }\n \n"
                 }
             ],
             "date": 1631749318403,
