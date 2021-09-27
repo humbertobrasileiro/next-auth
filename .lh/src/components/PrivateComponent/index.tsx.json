@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1631748791382,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1632784899261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n \n   if (typeof window !== 'undefined' && loading) return null;\n \n   if (!session) {\n-    return <p>Você não está autenticado</p>;\n+    return null;\n   }\n \n   return children;\n };\n"
                 }
             ],
             "date": 1631748791381,

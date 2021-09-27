@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1631558232690,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1632784852423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import { signIn } from 'next-auth/client';\n import { useRouter } from 'next/dist/client/router';\n import { useState } from 'react';\n+import { Button } from '../components/Button';\n import { FormLogin } from '../components/FormLogin';\n import { Wrapper } from '../components/Wrapper';\n \n export default function LoginPage() {\n@@ -23,10 +24,15 @@\n     const redirect = router.query?.redirect || '/';\n     router.push(redirect as string);\n   };\n \n+  const handleLoginGoogle = async () => {\n+    await signIn('google', { callbackUrl: '/' });\n+  };\n   return (\n     <Wrapper>\n       <FormLogin onLogin={handleLogin} errorMessage={error} />\n+      <br />\n+      <Button onClick={handleLoginGoogle}>Login com Google</Button>\n     </Wrapper>\n   );\n }\n"
                 }
             ],
             "date": 1631558232690,
