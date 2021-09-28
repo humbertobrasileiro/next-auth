@@ -22,8 +22,8 @@ export default NextAuth({
     Providers.Credentials({
       name: 'Credentials',
       credentials: {
-        email: {},
-        password: {},
+        email: { label: '' },
+        password: { label: '' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
@@ -84,17 +84,12 @@ export default NextAuth({
 
       session.accessToken = token.jwt;
       session.user = {
-        id: token.id,
+        //  id: token.id,
         name: token.name,
         email: token.email,
       };
 
       return { ...session };
-    },
-    async redirect(url, baseUrl) {
-      if (url.startsWith(baseUrl)) return url;
-      if (url.startsWith('/')) return baseUrl + url;
-      return baseUrl;
     },
   },
 });

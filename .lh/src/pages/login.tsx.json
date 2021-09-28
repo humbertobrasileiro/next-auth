@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1631558232690,
@@ -12,6 +12,10 @@
                 {
                     "date": 1632784852423,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import { signIn } from 'next-auth/client';\n import { useRouter } from 'next/dist/client/router';\n import { useState } from 'react';\n+import { Button } from '../components/Button';\n import { FormLogin } from '../components/FormLogin';\n import { Wrapper } from '../components/Wrapper';\n \n export default function LoginPage() {\n@@ -23,10 +24,15 @@\n     const redirect = router.query?.redirect || '/';\n     router.push(redirect as string);\n   };\n \n+  const handleLoginGoogle = async () => {\n+    await signIn('google', { callbackUrl: '/' });\n+  };\n   return (\n     <Wrapper>\n       <FormLogin onLogin={handleLogin} errorMessage={error} />\n+      <br />\n+      <Button onClick={handleLoginGoogle}>Login com Google</Button>\n     </Wrapper>\n   );\n }\n"
+                },
+                {
+                    "date": 1632862101439,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,25 +9,28 @@\n   const router = useRouter();\n   const [error, setError] = useState('');\n \n   const handleLogin = async (email: string, password: string) => {\n+    const redirect = router.query?.redirect || '/';\n+\n     const response = await signIn('credentials', {\n       email,\n       password,\n       redirect: false,\n+      callbackUrl: redirect as string,\n     });\n \n     if (!response.ok) {\n       setError('Usuário ou senha inválidos');\n       return;\n     }\n \n-    const redirect = router.query?.redirect || '/';\n-    router.push(redirect as string);\n+    window.location.href = response.url;\n   };\n \n   const handleLoginGoogle = async () => {\n-    await signIn('google', { callbackUrl: '/' });\n+    const redirect = router.query?.redirect || '/';\n+    await signIn('google', { callbackUrl: redirect as string });\n   };\n   return (\n     <Wrapper>\n       <FormLogin onLogin={handleLogin} errorMessage={error} />\n"
                 }
             ],
             "date": 1631558232690,

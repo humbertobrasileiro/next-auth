@@ -21,10 +21,7 @@ export default NextAuth({
   providers: [
     Providers.Credentials({
       name: 'Credentials',
-      credentials: {
-        email: {},
-        password: {},
-      },
+      credentials: {},
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 

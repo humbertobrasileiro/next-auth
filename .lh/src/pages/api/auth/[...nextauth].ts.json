@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1631313498877,
@@ -40,6 +40,14 @@
                 {
                     "date": 1632786109340,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n       }\n \n       session.accessToken = token.jwt;\n       session.user = {\n-        id: token.id,\n+        //  id: token.id,\n         name: token.name,\n         email: token.email,\n       };\n \n"
+                },
+                {
+                    "date": 1632861745616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,12 +20,9 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n-      credentials: {\n-        email: { label: '' },\n-        password: { label: '' },\n-      },\n+      credentials: {},\n       async authorize(credentials) {\n         if (!credentials?.email || !credentials?.password) return null;\n \n         try {\n@@ -83,15 +80,20 @@\n       }\n \n       session.accessToken = token.jwt;\n       session.user = {\n-        //  id: token.id,\n+        id: token.id,\n         name: token.name,\n         email: token.email,\n       };\n \n       return { ...session };\n     },\n+    async redirect(url, baseUrl) {\n+      if (url.startsWith(baseUrl)) return url;\n+      if (url.startsWith('/')) return baseUrl + url;\n+      return baseUrl;\n+    },\n   },\n });\n \n type StrapiUser = {\n"
+                },
+                {
+                    "date": 1632861931514,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,12 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n-      credentials: {},\n+      credentials: {\n+        email: {},\n+        password: {},\n+      },\n       async authorize(credentials) {\n         if (!credentials?.email || !credentials?.password) return null;\n \n         try {\n"
                 }
             ],
             "date": 1631313498877,
