@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 10,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1631313498877,
@@ -48,6 +48,10 @@
                 {
                     "date": 1632861931514,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,12 @@\n   },\n   providers: [\n     Providers.Credentials({\n       name: 'Credentials',\n-      credentials: {},\n+      credentials: {\n+        email: {},\n+        password: {},\n+      },\n       async authorize(credentials) {\n         if (!credentials?.email || !credentials?.password) return null;\n \n         try {\n"
+                },
+                {
+                    "date": 1632862505217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,8 @@\n       }\n \n       session.accessToken = token.jwt;\n       session.user = {\n-        id: token.id,\n         name: token.name,\n         email: token.email,\n       };\n \n"
                 }
             ],
             "date": 1631313498877,
