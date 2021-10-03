@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1631559370827,
@@ -12,6 +12,10 @@
                 {
                     "date": 1631811876179,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,11 @@\n       </Link>\n       <Link href=\"/create-post\">\n         <a>Create Post</a>\n       </Link>\n+      <Link href=\"/open-route\">\n+        <a>Open route</a>\n+      </Link>\n \n       {session ? (\n         <a href=\"#\" onClick={handleClick}>\n           Sair\n"
+                },
+                {
+                    "date": 1633265592165,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n   }, []);\n \n   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {\n     event.preventDefault();\n-    signOut({ redirect: false });\n+    signOut({ redirect: true });\n   };\n \n   return (\n     <Styled.Wrapper>\n"
                 }
             ],
             "date": 1631559370827,
